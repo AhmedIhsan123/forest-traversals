@@ -1,5 +1,7 @@
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class TreeProblems {
 
@@ -122,7 +124,7 @@ public class TreeProblems {
   */
   public static int sumTree(Map<Integer, List<Integer>> tree) {
     if (tree == null) {
-        return 0;
+      return 0;
     }
 
     int sum = 0;
@@ -154,9 +156,23 @@ public class TreeProblems {
    Hint: No recursion needed! Think about how you would do this by hand.
   */
   public static <T> T findRoot(Map<T, List<T>> tree) {
-    return null;
-  }
+    Set<T> children = new HashSet<>();
 
+    for (List<T> childList : tree.values()) {
+      children.addAll(childList);
+    }
+
+    T root = null;
+
+    for (T node : tree.keySet()) {
+      if (!children.contains(node)) {
+        root = node;
+        break;
+      }
+    }
+
+    return root;
+  }
   /*
    maxDepth (Node Version)
    -----------
